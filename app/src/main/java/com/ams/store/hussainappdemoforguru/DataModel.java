@@ -4,13 +4,23 @@ public class DataModel {
     public String id;
    public String title;
     public String price;
-   public String qty;
+   public int qty;
 
-    public String getQty() {
+    public DataModel() {
+    }
+
+    public DataModel(String id, String title, String price, int qty) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.qty = qty;
+    }
+
+    public int getQty() {
         return qty;
     }
 
-    public void setQty(String qty) {
+    public void setQty(int qty) {
         this.qty = qty;
     }
 

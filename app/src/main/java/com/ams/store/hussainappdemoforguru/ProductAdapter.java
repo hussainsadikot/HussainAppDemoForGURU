@@ -1,10 +1,12 @@
 package com.ams.store.hussainappdemoforguru;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +15,10 @@ import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private ArrayList<DataModel> productList;
+    private Context context;
 
-    public ProductAdapter(ArrayList<DataModel> productList){
+    public ProductAdapter(Context context,ArrayList<DataModel> productList){
+        this.context = context;
         this.productList = productList;
 
     }
@@ -28,14 +32,38 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        final DataModel product = productList.get(position);
         String id = productList.get(position).getId();
         String title = productList.get(position).getTitle();
         String price = productList.get(position).getPrice();
-        String qty = productList.get(position).getQty();
+        String qty = Integer.toString(productList.get(position).getQty());
+
         holder.productId.setText(id);
         holder.productTitle.setText(title);
         holder.productPrice.setText(price);
         holder.qtyTotal.setText(qty);
+        holder.qtyIncrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 int currentQty = product.getQty()+1;
+                 productList.get(holder.getAbsoluteAdapterPosition()).setQty(currentQty);
+                 notifyItemChanged(holder.getAbsoluteAdapterPosition());
+            }
+        });
+        holder.qtyDecrement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentQty = product.getQty();
+                if (currentQty==0){
+                    productList.get(holder.getAbsoluteAdapterPosition()).setQty(currentQty);
+                }else {
+                    currentQty = product.getQty()-1;
+                    productList.get(holder.getAbsoluteAdapterPosition()).setQty(currentQty);
+                }
+
+                notifyItemChanged(holder.getAbsoluteAdapterPosition());
+            }
+        });
     }
 
     @Override
@@ -51,15 +79,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public ProductViewHolder(View itemView){
             super(itemView);
             productId=(TextView)itemView.findViewById(R.id.product_id);
-            productId=(TextView)itemView.findViewById(R.id.product_title);
-            productId=(TextView)itemView.findViewById(R.id.product_price);
+            productTitle=(TextView)itemView.findViewById(R.id.product_title);
+            productPrice=(TextView)itemView.findViewById(R.id.product_price);
             qtyTotal=(TextView)itemView.findViewById(R.id.qtyTV);
             qtyIncrement=(Button) itemView.findViewById(R.id.increase);
             qtyDecrement=(Button) itemView.findViewById(R.id.decrease);
 
-
-
-
         }
+
     }
 }
