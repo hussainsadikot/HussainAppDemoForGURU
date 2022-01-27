@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,13 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>  {
     private ArrayList<DataModel> productList;
+    private ArrayList<DataModel> fullProductList;
     private Context context;
 
     public ProductAdapter(Context context,ArrayList<DataModel> productList){
         this.context = context;
         this.productList = productList;
+        fullProductList = new ArrayList<>(productList);
 
     }
     @NonNull
@@ -71,6 +75,30 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return productList.size();
     }
 
+//    @Override
+//    public Filter getFilter(){
+////        return exampleFilter;
+//        return null;
+//    }
+
+
+//    private Filter exampleFilter = new Filter() {
+//        @Override
+//        protected FilterResults performFiltering(CharSequence charSequence) {
+//            ArrayList<DataModel> filteredProduct = new ArrayList<>();
+//            if (charSequence == null || charSequence.length()==0){
+//                productList.
+//            }
+//            return null ;
+//        }
+//
+//        @Override
+//        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+//
+//        }
+//    }
+
+
     public class ProductViewHolder extends RecyclerView.ViewHolder{
         TextView qtyTotal,productId,
         productTitle ,productPrice;
@@ -88,4 +116,5 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
     }
+
 }

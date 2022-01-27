@@ -32,12 +32,10 @@ public class MainActivity extends AppCompatActivity {
         ProductListRv.setLayoutManager(new LinearLayoutManager(this));
 //        getData();
         ArrayList<DataModel> list = new ArrayList<>();
-        DataModel dataModel1 = new DataModel("1","Product 1","100",10);
-        DataModel dataModel2 = new DataModel("2","Product 2","200",21);
-        DataModel dataModel3 = new DataModel("3","Product 3","300",30);
-        list.add(dataModel1);
-        list.add(dataModel2);
-        list.add(dataModel3);
+        list.add(new DataModel("1","Product 1","100",0));
+        list.add(new DataModel("2","Product 2","200",0));
+        list.add(new DataModel("3","Product 3","300",0));
+        list.add(new DataModel("3","Product 4","300",0));
 
         ProductListRv.setAdapter(new ProductAdapter(this,list));
 
